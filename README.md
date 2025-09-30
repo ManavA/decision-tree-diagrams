@@ -6,10 +6,10 @@ Squares mark decisions, circles mark chance nodes, and dots mark outcomes. A nod
 
 ## Install
 
-With Python 3.10 or later, install the GitHub release with:
+With Python 3.10 or later, install from [PyPI](https://pypi.org/project/decision-tree-diagrams/).
 
 ```sh
-python -m pip install "git+https://github.com/ManavA/decision-tree-diagrams.git@v0.2.0"
+python -m pip install decision-tree-diagrams
 ```
 
 To run the examples, clone the repository and run the commands below from its root.
