@@ -1,0 +1,22 @@
+{
+  "type": "decision",
+  "label": "Choose delivery method",
+  "branches": [
+    {
+      "label": "Courier",
+      "child": {"type": "terminal", "label": "Quoted fee", "value": 95}
+    },
+    {
+      "label": "In-house",
+      "value": 12,
+      "child": {
+        "type": "chance",
+        "label": "Traffic",
+        "branches": [
+          {"probability": 0.7, "child": {"type": "terminal", "label": "Normal traffic", "value": 55}},
+          {"probability": 0.3, "child": {"type": "terminal", "label": "Heavy traffic", "value": 120}}
+        ]
+      }
+    }
+  ]
+}

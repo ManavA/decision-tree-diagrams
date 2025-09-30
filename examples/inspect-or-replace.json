@@ -1,0 +1,37 @@
+{
+  "type": "decision",
+  "label": "Service a pump",
+  "branches": [
+    {
+      "label": "Replace now",
+      "child": {"type": "terminal", "label": "New pump", "value": 220}
+    },
+    {
+      "label": "Inspect",
+      "value": 35,
+      "child": {
+        "type": "chance",
+        "label": "Inspection result",
+        "branches": [
+          {
+            "label": "Wear only",
+            "probability": 0.8,
+            "child": {
+              "type": "decision",
+              "label": "Choose service",
+              "branches": [
+                {"label": "Repair", "child": {"type": "terminal", "label": "Seal kit", "value": 65}},
+                {"label": "Replace", "child": {"type": "terminal", "label": "New pump", "value": 220}}
+              ]
+            }
+          },
+          {
+            "label": "Cracked housing",
+            "probability": 0.2,
+            "child": {"type": "terminal", "label": "New pump", "value": 220}
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "decision-tree-diagrams"
+version = "0.1.0"
+description = "Evaluate and draw decision trees with Matplotlib."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["matplotlib>=3.7"]
+license = {file = "LICENSE"}
+classifiers = ["License :: OSI Approved :: MIT License"]
+
+[project.scripts]
+decision-tree-diagrams = "decision_tree_diagrams.cli:main"
+
+[project.urls]
+Repository = "https://github.com/ManavA/decision-tree-diagrams"
+
+[tool.setuptools.packages.find]
+where = ["src"]

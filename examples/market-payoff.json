@@ -1,0 +1,22 @@
+{
+  "type": "decision",
+  "label": "Choose a sales format",
+  "branches": [
+    {
+      "label": "Reserved booth",
+      "child": {"type": "terminal", "label": "Guaranteed sales", "value": 180}
+    },
+    {
+      "label": "Outdoor stall",
+      "value": -40,
+      "child": {
+        "type": "chance",
+        "label": "Weather",
+        "branches": [
+          {"probability": 0.65, "child": {"type": "terminal", "label": "Clear", "value": 350}},
+          {"probability": 0.35, "child": {"type": "terminal", "label": "Rain", "value": 60}}
+        ]
+      }
+    }
+  ]
+}
