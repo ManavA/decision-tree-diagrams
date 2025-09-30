@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "decision-tree-diagrams"
-version = "0.1.0"
-description = "Evaluate and draw decision trees with Matplotlib."
+version = "0.2.0"
+description = "Evaluate and draw decision trees and weighted decision tables with Matplotlib."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = ["matplotlib>=3.7"]

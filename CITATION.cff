@@ -2,10 +2,10 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it using this metadata."
 title: Decision Tree Diagrams
 type: software
-version: 0.1.0
+version: 0.2.0
 authors:
 - family-names: Agarwal
   given-names: Manav
 repository-code: https://github.com/ManavA/decision-tree-diagrams
-url: https://github.com/ManavA/decision-tree-diagrams/releases/tag/v0.1.0
+url: https://github.com/ManavA/decision-tree-diagrams/releases/tag/v0.2.0
 license: MIT

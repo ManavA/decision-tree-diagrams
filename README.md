@@ -1,13 +1,13 @@
 # Decision Tree Diagrams
 
-Draw decision trees and calculate expected costs or payoffs with backward induction. Squares mark decisions, circles mark opportunities with uncertain outcomes, and dots mark terminal outcomes. The value shown beside each node summarizes costs or payoffs from that node onward.
+Draw decision trees, calculate expected costs or payoffs with backward induction, and compare feasible alternatives in weighted decision tables. Squares mark decisions, circles mark chance nodes, and dots mark terminal outcomes. The value shown beside each node summarizes costs or payoffs from that node onward.
 
 ## Install
 
 With Python 3.10 or later, install the GitHub release with:
 
 ```sh
-python -m pip install "git+https://github.com/ManavA/decision-tree-diagrams.git@v0.1.0"
+python -m pip install "git+https://github.com/ManavA/decision-tree-diagrams.git@v0.2.0"
 ```
 
 To run the examples, clone the repository and run the commands below from its root.
@@ -27,7 +27,7 @@ The CLI writes a diagram in the format given by the output extension. Use SVG or
 
 ### Delivery cost · classic
 
-A courier charges a flat fee. In-house delivery adds a dispatch fee and incurs costs based on traffic. The minimum expected cost is 86.50 USD. Classic uses orthogonal branches, double slashes for unselected actions, and dashes for zero-probability outcomes.
+A courier charges a flat fee. In-house delivery adds a dispatch fee and incurs costs based on traffic. The minimum expected cost is 86.50 USD. Classic uses orthogonal branches and marks unselected actions with double slashes. All styles show optimal actions with thicker lines, draw zero-probability outcomes with dashes, and align terminal values for comparison.
 
 ![Classic delivery cost tree](examples/delivery-cost.png)
 
@@ -45,7 +45,7 @@ A pump can be replaced immediately or inspected first. If inspection finds only 
 
 ## JSON format
 
-Start with any example under `examples/` and edit its labels, values, and branches. The file contains one root node, with child nodes nested inside branches.
+Start with any JSON example under `examples/` and edit its labels, values, and branches. The file contains one root node, with child nodes nested inside branches.
 
 | Node type | Required fields |
 | --- | --- |
@@ -81,6 +81,34 @@ fig.savefig("delivery.pdf")
 `load_json(path)` validates a JSON file and returns its root node for use with either function. `render` returns a Matplotlib `Figure`. Set `figure_size=(width, height)` in inches to fit a particular page or expand space for long labels.
 
 `evaluate` returns an `Evaluation` with `expected_value`, `chosen_edges` (zero-based indices for optimal decision branches), `children` (nested evaluations in branch order), and `branch_values` (child expected values including their incoming increments). Decision ties use absolute and relative tolerances of 0.000000000001. The result retains every tied choice and every child, including zero-probability outcomes.
+
+## Weighted decision tables
+
+When several options are judged against the same criteria, assign a weight to each criterion and a rating from 0 to 100 to each option. Higher ratings are better. For a criterion such as cost, map lower costs to higher ratings before passing them in.
+
+```python
+from decision_tree_diagrams import Alternative, Criterion, render_table, score_table
+
+criteria = [Criterion("Reliability", 3), Criterion("Convenience", 1)]
+alternatives = [
+    Alternative("Standard", [60, 100]),
+    Alternative("Premium", [80, 80]),
+    Alternative("Unavailable", [95, 95], feasible=False),
+]
+for row in score_table(criteria, alternatives):
+    print(row.alternative.label, row.score, row.rank)
+# Premium 80.0 1
+# Standard 70.0 2
+# Unavailable 95.0 None
+
+render_table(criteria, alternatives, title="Compare suppliers").savefig("suppliers.pdf")
+```
+
+Weights are relative and must be nonnegative, with at least one positive weight. Give each alternative one rating per criterion, in criterion order. The weighted score is the sum of each rating multiplied by its normalized weight. Feasible options are ranked by score. Scores within 0.000000001 points of the highest score in the tie group share a rank and retain input order. For example, two options tied for first are followed by third place. Infeasible options keep their scores, have a rank of `None`, and follow the ranked options in input order.
+
+The table prints each rating, the normalized criterion weights, the weighted scores, ranks, and feasibility. Run `python examples/supplier-selection.py` to rank the suppliers below and save a PDF.
+
+![Weighted supplier decision table](examples/supplier-selection.png)
 
 ## Development
 
