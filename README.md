@@ -1,6 +1,8 @@
 # Decision Tree Diagrams
 
-Draw decision trees, calculate expected costs or payoffs with backward induction, and compare feasible alternatives in weighted decision tables. Squares mark decisions, circles mark chance nodes, and dots mark terminal outcomes. The value shown beside each node summarizes costs or payoffs from that node onward.
+Draw decision trees and calculate expected costs or payoffs by backward induction. Use weighted decision tables to rank alternatives against a common set of criteria.
+
+Squares mark decisions, circles mark chance nodes, and dots mark outcomes. A node's value summarizes the costs or payoffs from that point onward.
 
 ## Install
 

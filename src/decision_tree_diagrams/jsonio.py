@@ -8,7 +8,7 @@ from pathlib import Path
 from .model import Branch, Chance, Decision, Node, Terminal, evaluate
 
 
-def _fields(payload, required, optional, path):
+def _fields(payload: object, required: set[str], optional: set[str], path: str) -> None:
     if not isinstance(payload, dict):
         raise ValueError(f"{path} must be a JSON object")
     missing = required - payload.keys()

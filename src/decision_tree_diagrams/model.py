@@ -59,7 +59,7 @@ class Evaluation:
     branch_values: tuple[float, ...] = ()
 
 
-def _number(value, context: str) -> float:
+def _number(value: object, context: str) -> float:
     if isinstance(value, bool) or not isinstance(value, Real):
         raise ValueError(f"{context} must be a finite number")
     try:
